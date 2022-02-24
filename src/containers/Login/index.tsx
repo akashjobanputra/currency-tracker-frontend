@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { useMutation, gql } from "@apollo/client";
+import { Button, Container, Divider, Form, Header } from "semantic-ui-react";
 
 function Login(props: any) {
   const LOGIN_MUTATION = gql`
@@ -42,6 +43,7 @@ function Login(props: any) {
   };
 
   const OnClick = (e: SyntheticEvent) => {
+    console.log({ e });
     e.preventDefault();
     if (!isLogin && password !== confirmPassword) {
       alert("password not match");
@@ -65,35 +67,40 @@ function Login(props: any) {
   }, [loading, error, data, props.history]);
 
   return (
-    <div
-      style={{
-        flex: 1,
-        flexDirection: "column",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <input value={username} name="username" onChange={onChange} />
-      <input
-        type="password"
-        value={password}
-        name="password"
-        onChange={onChange}
-      />
-      {!isLogin && (
-        <input
-          type="password"
-          value={confirmPassword}
-          name="confirmPassword"
+    <Container style={{ width: "500px" }}>
+      <Header as="h1">{isLogin ? "Login" : "Sign Up"}</Header>
+      <Form loading={loading} onSubmit={OnClick}>
+        <Form.Input
+          label="Username"
+          name="username"
+          value={username}
           onChange={onChange}
         />
-      )}
-      <button onClick={OnClick}>{isLogin ? "Login" : "Sign Up"}</button>
-      <p onClick={() => setIsLogin(!isLogin)}>
+        <Form.Input
+          label="Password"
+          name="password"
+          type="password"
+          value={password}
+          onChange={onChange}
+        />
+        {!isLogin && (
+          <Form.Input
+            label="Confirm Password"
+            name="confirmPassword"
+            type="password"
+            value={confirmPassword}
+            onChange={onChange}
+          />
+        )}
+        <Form.Button positive fluid>
+          {isLogin ? "Login" : "Sign Up"}
+        </Form.Button>
+      </Form>
+      <Divider />
+      <Button onClick={() => setIsLogin(!isLogin)} fluid basic>
         {isLogin ? "New User Register" : "Already have an account!"}
-      </p>
-    </div>
+      </Button>
+    </Container>
   );
 }
 
