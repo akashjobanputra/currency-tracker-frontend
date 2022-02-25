@@ -1,9 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
 import {
   ApolloClient,
   InMemoryCache,
@@ -11,9 +7,14 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import './index.css';
+
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { API_BASE_URL } from './constants';
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:3000/graphql",
+  uri: `${API_BASE_URL}/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
