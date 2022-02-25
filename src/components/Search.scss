@@ -1,9 +1,3 @@
-@use "@material/card";
-@use "@material/button/styles";
-
-@include card.core-styles;
-// @include button.core-styles;
-
 .my-card-content {
   padding: 16px;
 }
